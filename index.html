@@ -3,240 +3,231 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Core Financial System - Freedom Ledger</title>
+    <title>Sistem Keuangan - Freedom Ledger</title>
+    <!-- Bootstrap 5 CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- FontAwesome untuk Ikon -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        body { background-color: #121212; color: #e0e0e0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
-        .navbar-brand { font-weight: 700; color: #00e676 !important; letter-spacing: 1px; }
-        .card-premium { background-color: #1e1e1e; border: 1px solid #2d2d2d; border-radius: 16px; box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
-        .text-emerald { color: #00e676; }
-        .bg-emerald { background-color: #00e676; }
-        .nav-tabs { border-bottom: 2px solid #2d2d2d; }
-        .nav-link { color: #a0a0a0; font-weight: 600; border: none !important; }
-        .nav-link.active { color: #00e676 !important; background-color: transparent !important; border-bottom: 3px solid #00e676 !important; }
-        .form-control, .form-select { background-color: #2a2a2a; border: 1px solid #3d3d3d; color: #fff; border-radius: 8px; }
-        .form-control:focus, .form-select:focus { background-color: #2f2f2f; border-color: #00e676; color: #fff; box-shadow: none; }
-        .btn-emerald { background-color: #00e676; color: #121212; font-weight: 700; border-radius: 8px; transition: all 0.3s ease; }
-        .btn-emerald:hover { background-color: #00c853; color: #121212; transform: translateY(-2px); }
-        .platform-badge { width: 40px; height: 40px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-weight: bold; font-size: 1.2rem; }
-        .brand-grab { background-color: #00b14f; color: white; }
-        .brand-lalamove { background-color: #ff6600; color: white; }
-        .brand-shopee { background-color: #ff5522; color: white; }
-        .brand-usaha { background-color: #00e5ff; color: #121212; }
-        .brand-pribadi { background-color: #e040fb; color: white; }
-        .progress { background-color: #2a2a2a; height: 12px; border-radius: 6px; }
+        body { background-color: #121212; color: #ffffff; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .navbar-custom { background-color: #1a1a1a; border-bottom: 2px solid #00e676; }
+        .navbar-brand { font-weight: 700; color: #00e676 !important; }
+        .card-premium { background-color: #1e1e1e; border: 1px solid #333333; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.5); }
+        
+        /* Kontras Teks Putih Bersih agar Tidak Tabrakan */
+        .text-emerald { color: #00e676; font-weight: 700; }
+        .text-light-clear { color: #ffffff !important; }
+        .text-muted-clear { color: #b3b3b3 !important; }
+        .text-warning-clear { color: #ffca28; font-weight: 600; }
+        
+        .form-control, .form-select { background-color: #2d2d2d; border: 2px solid #444444; color: #ffffff; border-radius: 8px; font-weight: 500; }
+        .form-control:focus, .form-select:focus { background-color: #333333; border-color: #00e676; color: #ffffff; box-shadow: none; }
+        label { color: #ffffff; font-weight: 600; margin-bottom: 6px; }
+        
+        .btn-emerald { background-color: #00e676; color: #121212; font-weight: 700; border-radius: 8px; border: none; padding: 12px; }
+        .btn-emerald:hover { background-color: #00c853; color: #121212; }
+        .btn-outline-custom { border: 1px solid #444444; color: #ffffff; background: transparent; }
+        .btn-outline-custom:hover { background-color: #333333; color: #00e676; }
+        
+        .platform-row { border-bottom: 1px solid #2d2d2d; padding: 10px 0; }
+        .platform-row:last-child { border-bottom: none; }
+        .progress { background-color: #333333; height: 16px; border-radius: 8px; }
     </style>
 </head>
 <body>
 
-<nav class="navbar navbar-dark bg-dark sticky-top shadow-sm">
+<!-- Navbar Minimalis -->
+<nav class="navbar navbar-custom sticky-top shadow-sm">
     <div class="container">
-        <span class="navbar-brand"><i class="fa-solid margin-right fa-wallet me-2"></i>FREEDOM LEDGER</span>
-        <span class="badge bg-secondary" id="liveClock">Loading...</span>
+        <span class="navbar-brand"><i class="fa-solid fa-wallet me-2"></i>FREEDOM LEDGER</span>
+        <span class="badge bg-dark border border-secondary text-light-clear" id="liveClock">Memuat jam...</span>
     </div>
 </nav>
 
 <div class="container my-4">
-    <ul class="nav nav-tabs justify-content-center mb-4" id="mainTabs" role="tablist">
-        <li class="nav-item">
-            <button class="nav-link active" id="dashboard-tab" data-bs-toggle="tab" data-bs-target="#dashboard" type="button" role="tab"><i class="fa-solid fa-chart-line me-2"></i>Dashboard</button>
-        </li>
-        <li class="nav-item">
-            <button class="nav-link" id="input-tab" data-bs-toggle="tab" data-bs-target="#input-form" type="button" role="tab"><i class="fa-solid fa-pen-to-square me-2"></i>Input Data</button>
-        </li>
-    </ul>
-
-    <div class="tab-content" id="mainTabsContent">
+    <div class="row g-4">
         
-        <div class="tab-pane fade show active" id="dashboard" role="tabpanel">
+        <!-- KOLOM KIRI: DASHBOARD PERFORMA & TARGET -->
+        <div class="col-lg-6">
             
+            <!-- Target Harian -->
             <div class="card-premium p-4 mb-4">
                 <div class="d-flex justify-content-between align-items-center mb-2">
-                    <h5 class="m-0"><i class="fa-solid fa-bullseye text-danger me-2"></i>Target Pendapatan Bersih Hari Ini</h5>
-                    <button class="btn btn-sm btn-outline-light" onclick="ubahTargetHarian()"><i class="fa-solid fa-gear"></i></button>
+                    <span class="text-light-clear fw-bold"><i class="fa-solid fa-bullseye text-danger me-2"></i>Target Bersih Hari Ini</span>
+                    <button class="btn btn-sm btn-outline-custom" onclick="ubahTargetHarian()"><i class="fa-solid fa-pen-to-square me-1"></i>Set Target</button>
                 </div>
-                <h3 class="text-emerald" id="txtTargetHarian">Rp 0</h3>
+                <h2 class="text-emerald my-1" id="txtTargetHarian">Rp 0</h2>
                 <div class="progress my-3">
-                    <div id="progressBarTarget" class="progress-bar bg-emerald" role="progressbar" style="width: 0%"></div>
+                    <div id="progressBarTarget" class="progress-bar bg-success progress-bar-striped progress-bar-animated" role="progressbar" style="width: 0%"></div>
                 </div>
-                <p id="txtMotivator" class="fst-italic text-warning mb-0">Memuat data asisten harian...</p>
-            </div>
-
-            <div class="row g-3 mb-4">
-                <div class="col-md-4">
-                    <div class="card-premium p-3 text-center">
-                        <small class="text-muted d-block mb-1">BERSIH HARI INI</small>
-                        <h4 class="text-emerald m-0" id="netHariIni">Rp 0</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-premium p-3 text-center">
-                        <small class="text-muted d-block mb-1">BERSIH BULAN INI</small>
-                        <h4 class="text-emerald m-0" id="netBulanIni">Rp 0</h4>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    <div class="card-premium p-3 text-center">
-                        <small class="text-muted d-block mb-1">BERSIH TAHUN INI</small>
-                        <h4 class="text-emerald m-0" id="netTahunIni">Rp 0</h4>
-                    </div>
+                <div class="p-2 rounded bg-dark border border-secondary">
+                    <p id="txtMotivator" class="text-warning-clear mb-0 small">Memuat asisten finansial...</p>
                 </div>
             </div>
 
-            <div class="card-premium p-4 mb-4 border border-success">
-                <h5><i class="fa-solid fa-shield-halved text-emerald me-2"></i>Asisten Alokasi Kebebasan Finansial</h5>
-                <p class="text-muted small">Sistem mendeteksi pendapatan bersih harianmu. Berikut rekomendasi dana aman untuk diamankan malam ini:</p>
-                <div class="row g-2 mb-3">
-                    <div class="col-6 col-md-3">
-                        <div class="p-2 rounded bg-dark border border-secondary text-center">
-                            <small class="text-muted d-block">🛡️ Darurat (10%)</small>
-                            <span class="fw-bold" id="saranDarurat">Rp 0</span>
+            <!-- Ringkasan Angka Bersih -->
+            <div class="card-premium p-4 mb-4">
+                <h5 class="text-light-clear mb-3 fw-bold"><i class="fa-solid fa-calculator me-2 text-emerald"></i>Ringkasan Pendapatan Bersih</h5>
+                <div class="row text-center g-2">
+                    <div class="col-4">
+                        <div class="p-2 rounded bg-dark border border-secondary">
+                            <small class="text-muted-clear d-block mb-1">HARI INI</small>
+                            <span class="text-emerald fw-bold d-block" id="netHariIni">Rp 0</span>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="p-2 rounded bg-dark border border-secondary text-center">
-                            <small class="text-muted d-block">📈 Tabungan (15%)</small>
-                            <span class="fw-bold" id="saranTabungan">Rp 0</span>
+                    <div class="col-4">
+                        <div class="p-2 rounded bg-dark border border-secondary">
+                            <small class="text-muted-clear d-block mb-1">BULAN INI</small>
+                            <span class="text-emerald fw-bold d-block" id="netBulanIni">Rp 0</span>
                         </div>
                     </div>
-                    <div class="col-6 col-md-3">
-                        <div class="p-2 rounded bg-dark border border-secondary text-center">
-                            <small class="text-muted d-block">🔧 Operasional (15%)</small>
-                            <span class="fw-bold" id="saranOperasional">Rp 0</span>
-                        </div>
-                    </div>
-                    <div class="col-6 col-md-3">
-                        <div class="p-2 rounded bg-dark border border-secondary text-center">
-                            <small class="text-muted d-block">🍔 Pegangan (60%)</small>
-                            <span class="fw-bold text-emerald" id="saranKonsumsi">Rp 0</span>
+                    <div class="col-4">
+                        <div class="p-2 rounded bg-dark border border-secondary">
+                            <small class="text-muted-clear d-block mb-1">TAHUN INI</small>
+                            <span class="text-emerald fw-bold d-block" id="netTahunIni">Rp 0</span>
                         </div>
                     </div>
                 </div>
-                <button id="btnApproveAlokasi" class="btn btn-emerald w-100" onclick="eksekusiAlokasi()"><i class="fa-solid fa-rocket me-2"></i>Setujui & Alokasikan Dana Hari Ini</button>
             </div>
 
-            <h5 class="mb-3"><i class="fa-solid fa-cubes me-2 text-muted"></i>Performa Multi-Platform Kontrol</h5>
-            <div class="row g-3">
-                <div class="col-md-6">
-                    <div class="card-premium p-3 d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="platform-badge brand-grab me-3">G</div>
-                            <div>
-                                <h6 class="m-0 fw-bold">Grab</h6>
-                                <small class="text-success" id="masukGrab">Masuk: Rp 0</small>
-                            </div>
-                        </div>
-                        <small class="text-danger" id="keluarGrab">Keluar: Rp 0</small>
+            <!-- Performa Aplikasi -->
+            <div class="card-premium p-4 mb-4">
+                <h5 class="text-light-clear mb-3 fw-bold"><i class="fa-solid fa-chart-pie me-2 text-emerald"></i>Arus Kas Per Platform</h5>
+                
+                <div class="platform-row d-flex justify-content-between align-items-center">
+                    <span class="text-light-clear fw-bold"><i class="fa-solid fa-circle text-success me-2"></i>Grab</span>
+                    <div class="text-end">
+                        <span class="text-emerald d-block small" id="masukGrab">Masuk: Rp 0</span>
+                        <span class="text-danger d-block small" id="keluarGrab">Keluar: Rp 0</span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card-premium p-3 d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="platform-badge brand-lalamove me-3">L</div>
-                            <div>
-                                <h6 class="m-0 fw-bold">Lalamove</h6>
-                                <small class="text-success" id="masukLalamove">Masuk: Rp 0</small>
-                            </div>
-                        </div>
-                        <small class="text-danger" id="keluarLalamove">Keluar: Rp 0</small>
+                
+                <div class="platform-row d-flex justify-content-between align-items-center">
+                    <span class="text-light-clear fw-bold"><i class="fa-solid fa-circle text-warning me-2"></i>Lalamove</span>
+                    <div class="text-end">
+                        <span class="text-emerald d-block small" id="masukLalamove">Masuk: Rp 0</span>
+                        <span class="text-danger d-block small" id="keluarLalamove">Keluar: Rp 0</span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card-premium p-3 d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="platform-badge brand-shopee me-3">SF</div>
-                            <div>
-                                <h6 class="m-0 fw-bold">ShopeeFood</h6>
-                                <small class="text-success" id="masukShopee">Masuk: Rp 0</small>
-                            </div>
-                        </div>
-                        <small class="text-danger" id="keluarShopee">Keluar: Rp 0</small>
+                
+                <div class="platform-row d-flex justify-content-between align-items-center">
+                    <span class="text-light-clear fw-bold"><i class="fa-solid fa-circle text-danger me-2"></i>ShopeeFood</span>
+                    <div class="text-end">
+                        <span class="text-emerald d-block small" id="masukShopee">Masuk: Rp 0</span>
+                        <span class="text-danger d-block small" id="keluarShopee">Keluar: Rp 0</span>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="card-premium p-3 d-flex align-items-center justify-content-between">
-                        <div class="d-flex align-items-center">
-                            <div class="platform-badge brand-usaha me-3"><i class="fa-solid fa-shop"></i></div>
-                            <div>
-                                <h6 class="m-0 fw-bold">Bisnis & Ritel</h6>
-                                <small class="text-success" id="masukUsaha">Masuk: Rp 0</small>
-                            </div>
-                        </div>
-                        <small class="text-danger" id="keluarUsaha">Keluar: Rp 0</small>
+                
+                <div class="platform-row d-flex justify-content-between align-items-center">
+                    <span class="text-light-clear fw-bold"><i class="fa-solid fa-briefcase text-info me-2"></i>Bisnis / Usaha</span>
+                    <div class="text-end">
+                        <span class="text-emerald d-block small" id="masukUsaha">Masuk: Rp 0</span>
+                        <span class="text-danger d-block small" id="keluarUsaha">Keluar: Rp 0</span>
                     </div>
                 </div>
             </div>
 
         </div>
 
-        <div class="tab-pane fade" id="input-form" role="tabpanel">
-            <div class="card-premium p-4">
-                <h4 class="mb-4 text-emerald"><i class="fa-solid fa-file-invoice-dollar me-2"></i>Catat Transaksi Baru</h4>
+        <!-- KOLOM KANAN: FORM INPUT & ALOKASI DATA -->
+        <div class="col-lg-6">
+            
+            <!-- Form Input Kilat -->
+            <div class="card-premium p-4 mb-4">
+                <h5 class="text-light-clear mb-3 fw-bold"><i class="fa-solid fa-square-plus me-2 text-emerald"></i>Input Transaksi Baru</h5>
                 <form id="financeForm">
-                    <div class="mb-3">
-                        <label class="form-label">Tanggal</label>
-                        <input type="date" id="tanggal" class="form-control" required>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Jenis Aliran Dana</label>
-                        <select id="jenis" class="form-select" onchange="updateSubKategoriOptions()" required>
-                            <option value="Pemasukan">🟢 Pemasukan (Pendapatan)</option>
-                            <option value="Pengeluaran">🔴 Pengeluaran (Biaya)</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sektor</label>
-                        <select id="sektor" class="form-select" onchange="updatePlatformOptions()" required>
-                            <option value="Ojol">🚖 Sektor Ojol</option>
-                            <option value="Selain Ojol">💼 Sektor Selain Ojol (Usaha/Pribadi)</option>
-                        </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sumber Platform</label>
-                        <select id="platform" class="form-select" required>
+                    <div class="row g-2">
+                        <div class="col-6 mb-2">
+                            <label>Tanggal</label>
+                            <input type="date" id="tanggal" class="form-control" required>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label>Jenis Aliran</label>
+                            <select id="jenis" class="form-select" onchange="updateSubKategoriOptions()" required>
+                                <option value="Pemasukan">🟢 Pemasukan</option>
+                                <option value="Pengeluaran">🔴 Pengeluaran</option>
                             </select>
-                    </div>
-                    <div class="mb-3">
-                        <label class="form-label">Sub-Kategori</label>
-                        <select id="subKategori" class="form-select" required>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label>Sektor</label>
+                            <select id="sektor" class="form-select" onchange="updatePlatformOptions()" required>
+                                <option value="Ojol">🚖 Sektor Ojol</option>
+                                <option value="Selain Ojol">💼 Luar Ojol</option>
                             </select>
+                        </div>
+                        <div class="col-6 mb-2">
+                            <label>Platform</label>
+                            <select id="platform" class="form-select" required></select>
+                        </div>
+                    </div>
+                    <div class="mb-2">
+                        <label>Sub-Kategori</label>
+                        <select id="subKategori" class="form-select" required></select>
+                    </div>
+                    <div class="mb-2">
+                        <label>Jumlah Uang (Rp)</label>
+                        <input type="number" id="jumlah" class="form-control" placeholder="Contoh: 50000" required>
                     </div>
                     <div class="mb-3">
-                        <label class="form-label">Jumlah Nominal (Rp)</label>
-                        <input type="number" id="jumlah" class="form-control" placeholder="Murni angka tanpa titik, contoh: 50000" required>
+                        <label>Keterangan</label>
+                        <input type="text" id="keterangan" class="form-control" placeholder="Contoh: Tip orderan, Beli bensin" required>
                     </div>
-                    <div class="mb-3">
-                        <label class="form-label">Keterangan / Catatan Tambahan</label>
-                        <textarea id="keterangan" class="form-control" rows="2" placeholder="Contoh: Bensin pertalite, Gofood tip, Restock lakban packing" required></textarea>
-                    </div>
-                    <button type="submit" id="btnSubmitForm" class="btn btn-emerald w-100 p-2">Simpan ke Core System</button>
+                    <button type="submit" id="btnSubmitForm" class="btn btn-emerald w-100">Simpan Transaksi</button>
                 </form>
             </div>
-        </div>
 
+            <!-- Saran Alokasi Kebebasan Finansial -->
+            <div class="card-premium p-4 border border-secondary">
+                <h5 class="text-light-clear mb-2 fw-bold"><i class="fa-solid fa-shield-halved text-emerald me-2"></i>Rekomendasi Celengan Malam Ini</h5>
+                <p class="text-muted-clear small mb-3">Saran pembagian dana otomatis dari hasil bersih harianmu untuk mengamankan keuangan:</p>
+                
+                <div class="row g-2 mb-3 text-center">
+                    <div class="col-6">
+                        <div class="p-2 rounded bg-dark border border-secondary">
+                            <small class="text-muted-clear d-block small">🛡️ Darurat (10%)</small>
+                            <span class="text-light-clear fw-bold" id="saranDarurat">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 rounded bg-dark border border-secondary">
+                            <small class="text-muted-clear d-block small">📈 Tabungan (15%)</small>
+                            <span class="text-light-clear fw-bold" id="saranTabungan">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 rounded bg-dark border border-secondary">
+                            <small class="text-muted-clear d-block small">🔧 Operasional (15%)</small>
+                            <span class="text-light-clear fw-bold" id="saranOperasional">Rp 0</span>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="p-2 rounded bg-dark border border-secondary">
+                            <small class="text-muted-clear d-block small">🍔 Pegangan (60%)</small>
+                            <span class="text-emerald fw-bold" id="saranKonsumsi">Rp 0</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="btnApproveAlokasi" class="btn btn-outline-custom w-100 py-2 fw-bold" onclick="eksekusiAlokasi()"><i class="fa-solid fa-check-double me-2"></i>Setujui & Pisahkan Dana</button>
+            </div>
+
+        </div>
+        
     </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
 <script>
-    // URL Web App Google Apps Script Kamu yang Sudah Terkunci Aman
     const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwFLrIoua5Z9Tt2ySzp2MasQQFokldPyFeO7A5B9u7Bdqq6UHkvRKqEPU5bq1LAY4m3/exec";
-    
     let cacheTargetHarian = 0;
     let cacheBersihHariIni = 0;
 
-    // Set tanggal bawaan hari ini
     document.getElementById('tanggal').valueAsDate = new Date();
 
-    // Jam Digital Realtime di Atas
+    // Jam Digital Realtime
     setInterval(() => {
         const now = new Date();
         document.getElementById('liveClock').innerText = now.toLocaleTimeString('id-ID') + " | " + now.toLocaleDateString('id-ID', {day: 'numeric', month: 'short', year: 'numeric'});
     }, 1000);
 
-    // Fungsi Pengatur Dropdown Bercabang Sesuai Blueprint Rencana Kita
     function updatePlatformOptions() {
         const sektor = document.getElementById('sektor').value;
         const platformSelect = document.getElementById('platform');
@@ -251,7 +242,7 @@
         } else {
             platformSelect.innerHTML = `
                 <option value="Usaha">Usaha / Toko</option>
-                <option value="Pribadi">Pribadi / Pengeluaran Rumah</option>
+                <option value="Pribadi">Pribadi</option>
             `;
         }
         updateSubKategoriOptions();
@@ -264,34 +255,31 @@
 
         if (jenis === "Pemasukan") {
             subSelect.innerHTML = `
-                <option value="Pendapatan Bersih">Pendapatan Bersih Hasil Kerja</option>
-                <option value="Tip Tunai">Tip Tunai Lapangan/Customer</option>
-                <option value="Bonus/Insentif">Bonus / Insentif Aplikasi</option>
-                <option value="Keuntungan Usaha">Keuntungan/Omzet Usaha Toko</option>
+                <option value="Pendapatan Bersih">Pendapatan Bersih</option>
+                <option value="Tip Tunai">Tip Tunai Lapangan</option>
+                <option value="Bonus/Insentif">Bonus / Insentif</option>
+                <option value="Keuntungan Usaha">Omzet Usaha Toko</option>
                 <option value="Gaji/Honor">Gaji / WD Profit</option>
             `;
         } else {
             subSelect.innerHTML = `
-                <option value="Bensin">Bensin / Bahan Bakar</option>
-                <option value="Uang Makan">Uang Makan / Minum di Jalan</option>
-                <option value="Parkir & Tol">Parkir, Tol & Retribusi</option>
-                <option value="Servis Motor">Servis Motor, Oli & Sparepart</option>
-                <option value="Modal Dagang">Modal Dagang / Bahan Baku</option>
-                <option value="Belanja Pribadi">Belanja Kebutuhan Pribadi</option>
-                <option value="Cicilan / Utang">Cicilan / Bayar Kewajiban</option>
+                <option value="Bensin">Bensin / Pertalite</option>
+                <option value="Uang Makan">Uang Makan & Minum</option>
+                <option value="Parkir & Tol">Parkir / Tol</option>
+                <option value="Servis Motor">Servis & Oli Motor</option>
+                <option value="Modal Dagang">Belanja Modal Usaha</option>
+                <option value="Belanja Pribadi">Belanja Pribadi Harian</option>
+                <option value="Cicilan / Utang">Bayar Cicilan / Utang</option>
             `;
         }
     }
 
-    // Eksekusi Pemicu Awal Opsi Form
     updatePlatformOptions();
 
-    // FUNGSI UTAMA: AMBIL DATA DARI GOOGLE SHEETS (GET METHOD)
     function loadDashboardData() {
         fetch(WEB_APP_URL)
         .then(res => res.json())
         .then(data => {
-            // 1. Ambil data nominal penting
             cacheTargetHarian = data.financialFreedom.targetHarian;
             cacheBersihHariIni = data.summary.hariIni.bersih;
 
@@ -300,7 +288,6 @@
             document.getElementById('netBulanIni').innerText = formatRupiah(data.summary.bulanIni.bersih);
             document.getElementById('netTahunIni').innerText = formatRupiah(data.summary.tahunIni.bersih);
 
-            // 2. Set Multi-platform
             document.getElementById('masukGrab').innerText = "Masuk: " + formatRupiah(data.platforms.grab.masuk);
             document.getElementById('keluarGrab').innerText = "Keluar: " + formatRupiah(data.platforms.grab.keluar);
             document.getElementById('masukLalamove').innerText = "Masuk: " + formatRupiah(data.platforms.lalamove.masuk);
@@ -310,7 +297,6 @@
             document.getElementById('masukUsaha').innerText = "Masuk: " + formatRupiah(data.platforms.usaha.masuk);
             document.getElementById('keluarUsaha').innerText = "Keluar: " + formatRupiah(data.platforms.usaha.keluar);
 
-            // 3. Hitung Logika Target Tracker & Motivator Dinamis
             let persentase = 0;
             if(cacheTargetHarian > 0) {
                 persentase = Math.min((cacheBersihHariIni / cacheTargetHarian) * 100, 100);
@@ -321,35 +307,31 @@
             if(persentase === 0) {
                 txtMotivator.innerText = "Yuk semangat, perjalanan baru dimulai! Target harian masih banyak, gas pol pelan-pelan! 🚀";
             } else if(persentase > 0 && persentase <= 35) {
-                txtMotivator.innerText = "Awal yang bagus, roda berputar! Kumpulkan pundi-pundi rupiah perlahan tapi pasti. ⚡";
+                txtMotivator.innerText = "Awal yang bagus! Kumpulkan pundi-pundi rupiah perlahan tapi pasti. ⚡";
             } else if(persentase > 35 && persentase <= 75) {
-                txtMotivator.innerText = "Mantap, udah setengah jalan lebih! Sedikit lagi kejar targetmu hari ini, jaga fokus di jalan! ⚡";
+                txtMotivator.innerText = "Mantap, udah setengah jalan lebih! Sedikit lagi kejar targetmu hari ini! ⚡";
             } else if(persentase > 75 && persentase < 100) {
-                txtMotivator.innerText = "Tipis banget lagi! Kurang dikit lagi akun kamu pecah target hari ini, yuk bisa yuk satu orderan/penjualan lagi! 🔥";
+                txtMotivator.innerText = "Tipis banget! Kurang dikit lagi pecah target harian, yuk bisa yuk satu orderan lagi! 🔥";
             } else {
-                txtMotivator.innerText = "ALHAMDULILLAH, TARGET TERPENUHI! 🏆 Kamu luar biasa hari ini. Waktunya amankan dana finansialmu atau lanjut bonusan dengan aman!";
-                txtMotivator.className = "fst-italic text-emerald fw-bold mb-0";
+                txtMotivator.innerText = "ALHAMDULILLAH, TARGET TERPENUHI! 🏆 Kamu luar biasa hari ini. Waktunya amankan dana finansialmu!";
             }
 
-            // 4. Hitung Sistem Rekomendasi Saran Alokasi Dana (Berdasarkan Pendapatan Bersih Hari Ini)
             let nominalBersih = Math.max(0, cacheBersihHariIni);
             document.getElementById('saranDarurat').innerText = formatRupiah(nominalBersih * 0.10);
             document.getElementById('saranTabungan').innerText = formatRupiah(nominalBersih * 0.15);
             document.getElementById('saranOperasional').innerText = formatRupiah(nominalBersih * 0.15);
             document.getElementById('saranKonsumsi').innerText = formatRupiah(nominalBersih * 0.60);
         })
-        .catch(err => console.error("Gagal mengambil rekap database: ", err));
+        .catch(err => console.error("Error data: ", err));
     }
 
-    // Jalankan load data otomatis setiap halaman dibuka
     loadDashboardData();
 
-    // FUNGSI INPUT TRANSAKSI KE GOOGLE SHEETS
     document.getElementById('financeForm').addEventListener('submit', function(e) {
         e.preventDefault();
         const btn = document.getElementById('btnSubmitForm');
         btn.disabled = true;
-        btn.innerText = "Menghubungkan ke Core Spreadsheet...";
+        btn.innerText = "Menyimpan data...";
 
         const payload = {
             action: "addTransaction",
@@ -369,40 +351,37 @@
             body: JSON.stringify(payload)
         })
         .then(() => {
-            alert("✅ Data Berhasil Dicatat Di Tab Transaksi!");
+            alert("✅ Transaksi Berhasil Disimpan!");
             document.getElementById('jumlah').value = "";
             document.getElementById('keterangan').value = "";
-            // Kembali ke tab dashboard & refresh data
-            document.getElementById('dashboard-tab').click();
+            window.scrollTo({top: 0, behavior: 'smooth'});
             loadDashboardData();
         })
-        .catch(err => alert("Terjadi gangguan jaringan: " + err))
+        .catch(err => alert("Gangguan jaringan: " + err))
         .finally(() => {
             btn.disabled = false;
-            btn.innerText = "Simpan ke Core System";
+            btn.innerText = "Simpan Transaksi";
         });
     });
 
-    // FUNGSI TOMBOL PERSUTUJUAN ALOKASI CELEGAN FREEDOM
     function eksekusiAlokasi() {
         if(cacheBersihHariIni <= 0) {
-            alert("Saran dana hari ini masih Rp 0 karena kamu belum mencatatkan pemasukan bersih yang surplus hari ini.");
+            alert("Saran dana masih Rp 0 karena belum ada pemasukan bersih hari ini.");
             return;
         }
         
-        const konfirmasi = confirm("Apakah kamu yakin aman dan setuju untuk memindahkan dana harian ini ke dalam pos celengan tabungan sistem?");
+        const konfirmasi = confirm("Apakah kamu setuju memisahkan dana harian ini ke rekening celengan?");
         if(!konfirmasi) return;
 
         const btn = document.getElementById('btnApproveAlokasi');
         btn.disabled = true;
-        btn.innerText = "Mengunci dana ke Pos Tabungan Kebebasan...";
+        btn.innerText = "Mengunci dana pos...";
 
-        const nominalBersih = cacheBersihHariIni;
         const payload = {
             action: "allocateFunds",
-            darurat: nominalBersih * 0.10,
-            tabungan: nominalBersih * 0.15,
-            operasional: nominalBersih * 0.15
+            darurat: cacheBersihHariIni * 0.10,
+            tabungan: cacheBersihHariIni * 0.15,
+            operasional: cacheBersihHariIni * 0.15
         };
 
         fetch(WEB_APP_URL, {
@@ -412,19 +391,18 @@
             body: JSON.stringify(payload)
         })
         .then(() => {
-            alert("🚀 Sukses! Dana finansial berhasil disisihkan dan diamankan ke dalam tab Target_Saran.");
+            alert("🚀 Sukses! Dana finansial berhasil disisahkan ke Target_Saran.");
             loadDashboardData();
         })
-        .catch(err => alert("Gagal mengalokasikan: " + err))
+        .catch(err => alert("Gagal: " + err))
         .finally(() => {
             btn.disabled = false;
-            btn.innerText = "Setujui & Alokasikan Dana Hari Ini";
+            btn.innerText = "Setujui & Pisahkan Dana";
         });
     }
 
-    // FUNGSI GANTI TARGET HARIAN
     function ubahTargetHarian() {
-        const targetBaru = prompt("Masukkan nominal target bersih harian kamu yang baru (angka murni):", cacheTargetHarian);
+        const targetBaru = prompt("Masukkan target bersih harian baru (angka murni):", cacheTargetHarian);
         if(!targetBaru || isNaN(targetBaru)) return;
 
         fetch(WEB_APP_URL, {
@@ -434,12 +412,11 @@
             body: JSON.stringify({ action: "updateTarget", targetHarian: targetBaru })
         })
         .then(() => {
-            alert("Target Harian Berhasil Diperbarui!");
+            alert("Target Diperbarui!");
             loadDashboardData();
         });
     }
 
-    // Fungsi Pembantu Format Mata Uang Rp
     function formatRupiah(angka) {
         return "Rp " + Number(angka).toLocaleString('id-ID', { minimumFractionDigits: 0 });
     }
